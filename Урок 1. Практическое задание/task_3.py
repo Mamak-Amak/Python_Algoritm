@@ -17,3 +17,29 @@
 Примечание: ПРОШУ ВАС ВНИМАТЕЛЬНО ЧИТАТЬ ЗАДАНИЕ!
 """
 
+Companyes = {'Пятёрочка': 2000,'Магнит': 500,'РЖД': 2300,'Турфирма': 5400,'Лоботомия': 10,
+'КисКО': 8901, 'К&Б': 4313,}
+
+################## №1 - O(N*logN)
+List_C = list(Companyes.items())
+List_C.sort(key=lambda i: i[1], reverse=True)
+for i in range(3):
+    print(List_C[i][0], ':', List_C[i][1])
+
+print('*' * 50)
+
+################## №2 - O(N)
+def three_max(list_input):
+    input_max = {}
+    list_d = dict(list_input)
+    for i in range(3):
+        maximum = max(list_d.items(), key=lambda k_v: k_v[1])
+        del list_d[maximum[0]]
+        input_max[maximum[0]] = maximum[1]
+    return input_max
+
+
+print(three_max(Companyes))
+
+
+'''3-й вариант предпочтительнее, поскольку не изменяет словарь и имеет меньше вычислений'''
