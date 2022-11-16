@@ -22,3 +22,74 @@
 
 Примечание: ПРОШУ ВАС ВНИМАТЕЛЬНО ЧИТАТЬ ЗАДАНИЕ!
 """
+
+
+ '''Вариант№ 1'''
+
+Users = {'Alabamag43@gmail.com': {"password": '142745rtrt',
+                                   "activated": False},
+         'Fromashes444@gmail.com': {"password": '54634dfdfe',
+                                     "activated": True},
+         'Antanta56@gmail.com': {"password": 'passs4444',
+                                      "activated": False}}
+
+
+def authorisation_1(login: str, password: str):
+    if login in users.keys():
+        if  password in users[login].values():
+            if users [login] ['activated']:
+                print ("Complete")
+
+                return True
+
+            else:
+                print ("Вам нужно активировать свой аккаунт, пожалуйста, следуйте инструкции..") # O(1)
+                return False
+
+        else:
+            print ("Неверный пароль")
+
+            return False
+
+    else:
+        print ("Такого пользователя не существует")
+
+        return False
+
+
+'''
+сложность: O(n ^ 2)
+линейное
+'''
+
+'''Вариант№ 2'''
+
+def authorisation_2(login: str, password: str):
+
+    user_exists = False
+
+    for user in users.keys():
+        if password == login:
+            user_exists = True
+        break
+
+    if user_exists:
+        password_correct = users[login]['password'] == password
+        activated = users[login]['activated']
+        if password_correct:
+            if activated:
+                print("Доступ разрешен")
+                return True
+            else:
+                print("Вам нужно активировать свой аккаунт, пожалуйста, следуйте инструкции..")
+                return False
+        else:
+            print("Невверный пароль")
+            return False
+    else:
+        print("Пользователь не существует")
+        return False
+
+'''
+Сложность алгоритма O(n) : линейное
+'''
