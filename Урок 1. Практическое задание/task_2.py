@@ -15,3 +15,26 @@
 -- каждый из двух алгоритмов нужно оформить в виде отдельной ф-ции
 -- проставьте сложности каждого выражения в двух ваших алгоритмах
 """
+''' Var_1: '''
+def list_min_n2(lst):
+    for i in lst:
+        is_min = True
+        for j in lst:
+            if i > j:
+                is_min = False
+        if  is_min:
+            return i
+
+
+
+''' Var_2: '''
+def list_min_n(lst):
+    min_value = lst[0]
+    for i in lst:
+        if i < min_value:
+            min_value = i
+    return min_value
+
+lst1 = [randint(0, 150) for i in range(50)]
+print(lst1)
+print(list_min_n2(lst1))
