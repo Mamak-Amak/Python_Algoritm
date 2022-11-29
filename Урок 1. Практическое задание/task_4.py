@@ -24,72 +24,65 @@
 """
 
 
- '''Вариант№ 1'''
-
-Users = {'Alabamag43@gmail.com': {"password": '142745rtrt',
-                                   "activated": False},
-         'Fromashes444@gmail.com': {"password": '54634dfdfe',
-                                     "activated": True},
-         'Antanta56@gmail.com': {"password": 'passs4444',
-                                      "activated": False}}
-
-
-def authorisation_1(login: str, password: str):
-    if login in users.keys():
-        if  password in users[login].values():
-            if users [login] ['activated']:
-                print ("Complete")
-
-                return True
-
-            else:
-                print ("Вам нужно активировать свой аккаунт, пожалуйста, следуйте инструкции..") # O(1)
-                return False
-
+ def binary_search(list_, item):
+    low = 0
+    high = len(list_) - 1
+    while low <= high:
+        mid = (low + high) // 2
+        guess = list_[mid]
+        if guess == item:
+            return mid
+        if guess > item:
+            high = mid - 1
         else:
-            print ("Неверный пароль")
+            low = mid + 1
+    return None
 
-            return False
 
-    else:
-        print ("Такого пользователя не существует")
+def get_user_data_0(user):  # Константная сложность алгоритма O(1)
+    users_table = {'user_0': {'password': 'psw_0', 'status': 1},
+                   'user_1': {'password': 'psw_1', 'status': 0},
+                   'user_2': {'password': 'psw_2', 'status': 0}}
+    dict_psw = users_table.get(user)
+    return dict_psw.get('password'), dict_psw.get('status')
 
-        return False
 
+def get_user_data_1(user):  # Линейная сложность алгоритма O(n)
+    users_table = [['user_0', 'psw_0', 1], ['user_1', 'psw_1', 0], ['user_2', 'psw_2', 0]]
+    for val in users_table:
+        if val[0] == user:
+            return val[1], val[2]
+    return None, None
+
+
+def get_user_data_2(user):  # Логарифмическая сложность алгоритма O(log n)
+    user_sorted_index = ['user_0', 'user_1', 'user_2', 'user_3', 'user_4', 'user_5', 'user_6', 'user_7', 'user_8']
+    users_table = [['user_0', 'psw_0', 1], ['user_1', 'psw_1', 0], ['user_2', 'psw_2', 0],
+                   ['user_3', 'psw_3', 1], ['user_4', 'psw_4', 0], ['user_5', 'psw_5', 0],
+                   ['user_6', 'psw_6', 1], ['user_7', 'psw_7', 0], ['user_8', 'psw_8', 0]
+                   ]
+    index = binary_search(user_sorted_index, user)
+    if index is None:
+        return None, None
+    return users_table[index][1], users_table[index][2]
+
+
+def verify_user(user, password, num):  # работаем с одним из трех алгоритмов (num := 0,1,2)
+    get_user_data = [get_user_data_0, get_user_data_1, get_user_data_2]
+    psw, stat = get_user_data[num](user)
+    if psw is None:
+        return None
+    if stat == 0:
+        print('Пожалуйста, активируйте учетную запись')
+    return psw == password or False  # True - доступ разрешен; False - неправильный пароль
+
+
+print(f"{verify_user('user_2', 'psw_1', 0)=}")
+print(f"{verify_user('user_0', 'psw_0', 1)=}")
+print(f"{verify_user('user_7', 'psw_7', 2)=}")
 
 '''
-сложность: O(n ^ 2)
-линейное
-'''
-
-'''Вариант№ 2'''
-
-def authorisation_2(login: str, password: str):
-
-    user_exists = False
-
-    for user in users.keys():
-        if password == login:
-            user_exists = True
-        break
-
-    if user_exists:
-        password_correct = users[login]['password'] == password
-        activated = users[login]['activated']
-        if password_correct:
-            if activated:
-                print("Доступ разрешен")
-                return True
-            else:
-                print("Вам нужно активировать свой аккаунт, пожалуйста, следуйте инструкции..")
-                return False
-        else:
-            print("Невверный пароль")
-            return False
-    else:
-        print("Пользователь не существует")
-        return False
-
-'''
-Сложность алгоритма O(n) : линейное
+В данной задаче наибольшую эффективность имеет реализации хранилища в виде словаря - O(1)
+Затем бинарный поиск в заранее отсортированном массиве - O(log n)
+Затем хранение в виде вложенных списков - O(n)
 '''
