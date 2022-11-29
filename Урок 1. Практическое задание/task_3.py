@@ -17,29 +17,20 @@
 Примечание: ПРОШУ ВАС ВНИМАТЕЛЬНО ЧИТАТЬ ЗАДАНИЕ!
 """
 
-Companyes = {'Пятёрочка': 2000,'Магнит': 500,'РЖД': 2300,'Турфирма': 5400,'Лоботомия': 10,
-'КисКО': 8901, 'К&Б': 4313,}
+corporations = {'Intel': 5000, 'Google': 7000, 'Yandex': 3000,
+                'Microsoft': 10000, 'Amazon': 1000} # 1 O(n^2)
+sorted_values = sorted(corporations.values(), reverse=True)  # O(n log n)
+sorted_corp = {}  # O(1)
+for value in sorted_values:  # O(n)
+    for key in corporations.keys():  # O(n)
+        if corporations[key] == value:  # O(1)
+            sorted_corp[key] = corporations[key]  # O(1)
+print(dict(list(sorted_corp.items())[:3]))  # O(n) + O(n) + O(1)
 
-################## №1 - O(N*logN)
-List_C = list(Companyes.items())
-List_C.sort(key=lambda i: i[1], reverse=True)
-for i in range(3):
-    print(List_C[i][0], ':', List_C[i][1])
-
-print('*' * 50)
-
-################## №2 - O(N)
-def three_max(list_input):
-    input_max = {}
-    list_d = dict(list_input)
-    for i in range(3):
-        maximum = max(list_d.items(), key=lambda k_v: k_v[1])
-        del list_d[maximum[0]]
-        input_max[maximum[0]] = maximum[1]
-    return input_max
+# Var 2 O(n log n)
+top_3_corporations = (sorted(corporations.items(),
+key=lambda items: items[1], reverse=True))[:3]  # O(n log n), срез O(1)
+print(top_3_corporations)  # O(1)
 
 
-print(three_max(Companyes))
 
-
-'''3-й вариант предпочтительнее, поскольку не изменяет словарь и имеет меньше вычислений'''
